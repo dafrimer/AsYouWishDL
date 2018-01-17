@@ -68,7 +68,7 @@ validation_generator = test_datagen.flow_from_directory(
 model.fit_generator(
         train_generator,
         steps_per_epoch=2000 // batch_size,
-        epochs=50,
+        epochs=3,
         validation_data=validation_generator,
         validation_steps=800 // batch_size)
 model.save_weights('first_try.h5')  # always save your weights after training or during training
