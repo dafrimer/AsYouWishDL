@@ -18,8 +18,8 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers.advanced_activations import LeakyReLU
 
 import keras
-tbcallback = keras.callbacks.TensorBoard(log_dir=os.path.join(os.path.dirname(__file__),'../graph'), histogram_freq=0,
-          write_graph=True, write_images=True)
+#tbcallback = keras.callbacks.TensorBoard(log_dir=os.path.join(os.path.dirname(__file__),'../graph'), histogram_freq=0,
+#          write_graph=True, write_images=True)
 
 
 base_dir = 'D:\Documents\PycharmProjects\AsYouWishDL\data'
@@ -135,7 +135,7 @@ history = model.fit_generator(
       validation_data=validation_generator,
       validation_steps=sum((len(x[2]) for x in os.walk(validation_dir)))//20,
       verbose=1,
-      callbacks=[tbcallback]
+      #callbacks=[tbcallback]
         )
 
 
