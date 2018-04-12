@@ -3,7 +3,7 @@ from Adafruit_MotorHAT import Adafruit_MotorHAT
 import time
 import atexit
 
-
+mh = Adafruit_MotorHAT(0x70)
 def turnOffMotors():
     mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
@@ -46,7 +46,7 @@ def setServoPulse(channel, pulse):
     print("%d us per bit" % pulseLength)
     pulse *= 20
     pulse //= pulseLength
-    pwm.setPWM(channel, 0, pulse)
+    pwm.setPWM(channel, 0, int(pulse))
 
 
 class DoorServo():
@@ -59,17 +59,6 @@ class DoorServo():
 
 from Adafruit_PWM_Servo_Driver import PWM
 
-def setServoPulse(channel, pulse):
-    pulseLength = 1000000                   # 1,000,000 us per second
-    pulseLength = pulseLength // 60                       # 60 Hz
-    print("%d us per period" % pulseLength)
-    pulseLength = pulseLength // 4096                     # 12 bits of resolution
-    print("%d us per bit" % pulseLength)
-    pulse *= 20
-    pulse = int(pulse // pulseLength)
-    print("Pulse", pulse)
-    pwm.setPWM(channel, 0, pulse)
-
 
 pwm = PWM(0x70, debug=True)
 frequency = 60
@@ -79,13 +68,13 @@ print("Open Door:")
 def openServoDoorandUnlock():
     pwm.setPWM(1,0,500);time.sleep(2) # Unlock
     pwm.setPWM(0,0,200) # Open Door
-    time.sleep(1); 
-    pwm.setPWM(0,4096,0);pwm.setPWM(1,4096,0); #Shut off servos
+    time.sleep(1)
+    pwm.setPWM(0,4096,0);pwm.setPWM(1,4096,0) #Shut off servos
 
 def closeServoDoorandLock():
     pwm.setPWM(0,0,600) ;time.sleep(2) # Close Door
     pwm.setPWM(1,0,300) # Lock door
-    time.sleep(1); 
+    time.sleep(1)
     pwm.setPWM(0,4096,0);pwm.setPWM(1,4096,0)# shut off servos
 """
 
